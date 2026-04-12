@@ -15,15 +15,22 @@ datasets
 matplotlib
 pandas
 
-# PDF handling (Module 1, Phase 1)
+# PDF handling
 PyMuPDF
 
-# Gradio UI (bonus, Phase 5)
-# gradio
+# Image preprocessing (skew detection / deskew)
+opencv-python-headless
+numpy
 
-# NOTE for Colab install cell:
-# !pip install -q git+https://github.com/huggingface/transformers
-# !pip install -q accelerate bitsandbytes qwen-vl-utils[decord] datasets pillow matplotlib
+# Gradio UI
+gradio
+
+# ───────────────────────────────────────────────────────────
+# Colab quick-install (copy into first cell):
+#
+#   !pip install -q git+https://github.com/huggingface/transformers
+#   !pip install -q accelerate bitsandbytes qwen-vl-utils[decord] datasets
+#   !pip install -q pillow PyMuPDF opencv-python-headless numpy gradio matplotlib pandas
 #
 # Llama-3.2-11B-Vision requires HuggingFace login:
 #   !huggingface-cli login --token YOUR_TOKEN

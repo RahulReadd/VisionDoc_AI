@@ -1,5 +1,17 @@
-.venv/ 
+.venv/
+__pycache__/
+*.pyc
+
+# Large model weights / caches
+*.bin
+*.safetensors
+.cache/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+Model_results/** 
+notebooks/** 
 
 Planning/**
-
-notebooks/** 
