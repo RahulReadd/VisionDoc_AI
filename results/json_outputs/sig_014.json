@@ -1,0 +1,88 @@
+{
+  "image_idx": 14,
+  "source": "cord",
+  "model": "qwen3-vl-2b",
+  "gt_signature_present": false,
+  "prediction": {
+    "key_value_pairs": {
+      "description": "A receipt from XXI cafe showing a purchase of Combo 1 for 30,000, with payment of 50,000 in cash and a change of 20,000.",
+      "example": {
+        "vendor_name": "XXI cafe",
+        "date": null,
+        "invoice_number": null
+      }
+    },
+    "signature": {
+      "present": false,
+      "confidence": "low",
+      "location": null
+    },
+    "form_fields": [
+      {
+        "field_name": "item name",
+        "status": "filled",
+        "value": "Combo 1"
+      },
+      {
+        "field_name": "quantity",
+        "status": "filled",
+        "value": "1"
+      },
+      {
+        "field_name": "unit price",
+        "status": "filled",
+        "value": "30,000"
+      },
+      {
+        "field_name": "subtotal_price",
+        "status": "filled",
+        "value": "30,000"
+      },
+      {
+        "field_name": "tax_price",
+        "status": "empty",
+        "value": null
+      },
+      {
+        "field_name": "discount_price",
+        "status": "empty",
+        "value": null
+      },
+      {
+        "field_name": "total_price",
+        "status": "filled",
+        "value": "30,000"
+      },
+      {
+        "field_name": "cashprice",
+        "status": "filled",
+        "value": "50,000"
+      },
+      {
+        "field_name": "changeprice",
+        "status": "filled",
+        "value": "20,000"
+      }
+    ],
+    "receipt": {
+      "menu": [
+        {
+          "nm": "Combo 1",
+          "cnt": "1",
+          "price": "30,000"
+        }
+      ],
+      "sub_total": {
+        "subtotal_price": "30,000",
+        "tax_price": null,
+        "discount_price": null
+      },
+      "total": {
+        "total_price": "30,000",
+        "cashprice": "50,000",
+        "changeprice": "20,000"
+      }
+    }
+  },
+  "json_valid": true
+}

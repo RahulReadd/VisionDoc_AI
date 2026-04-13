@@ -4,21 +4,24 @@
 
 **Selected model: Qwen3-VL-2B-Instruct** (Alibaba, 2025)
 
-We benchmarked 7 open-source VLMs on 20 CORD v2 receipt images using a free Google Colab T4 GPU (15 GB VRAM). All models were evaluated on operational metrics (load time, VRAM, inference speed, JSON parse rate) and accuracy metrics (Field Exact Match, Field Token F1, Menu Item F1).
+We benchmarked 7 open-source VLMs on 20 CORD v2 receipt images using a free Google Colab T4 GPU (15 GB VRAM). Models were evaluated on operational metrics (load time, VRAM, inference speed, JSON parse rate) and accuracy metrics (Field Exact Match, Field Token F1, Menu Item F1). A weighted scoring system (Accuracy 40%, Speed 25%, VRAM 20%, JSON reliability 15%) produced the final ranking.
 
-| Model | Params | VRAM (MB) | Avg Inference (s) | JSON % | Notes |
-|-------|--------|-----------|--------------------|---------|-|
-| **Qwen3-VL-2B** | 2B | 4,058 | 8.41 | 100% | **Selected** — fastest load, lowest VRAM |
-| Qwen2.5-VL-3B | 3B | 7,171 | 8.98 | 100% | Strong but 1.8x the VRAM |
-| Qwen3-VL-4B | 4B | 8,465 | 10.43 | 100% | Diminishing returns over 2B |
-| InternVL 3.5-8B (4-bit) | 8B | 6,307 | 14.62 | 100% | SOTA OCR but slow load (~22 min) |
-| Pixtral-12B (4-bit) | 12B | 8,693 | 22.82 | 100% | Native-resolution, but 2.7x slower inference |
-| Florence-2-large | 0.77B | ~2,000 | — | — | Incompatible prompt architecture; uses task tokens (`<OCR>`), not free-form prompts |
-| Llama-3.2-11B-Vision (4-bit) | 11B | ~8,000 | — | — | Gated model; CUDA OOM under load on T4 |
+| Model | VRAM (MB) | Avg Inf (s) | JSON % | Field EM | Field F1 | Menu F1 | Weighted Score |
+|-------|-----------|-------------|--------|----------|----------|---------|----------------|
+| **Qwen3-VL-2B** ★ | 4,058 | 13.0 | 100% | 0.492 | 0.525 | 0.768 | **0.855** |
+| Qwen2.5-VL-3B | 7,171 | 14.31 | 100% | 0.658 | 0.658 | 0.859 | 0.790 |
+| Qwen3-VL-4B | 8,480 | 12.83 | 100% | 0.542 | 0.575 | 0.834 | 0.778 |
+| InternVL 3.5-8B (4-bit) | 6,312 | 18.69 | 100% | 0.492 | 0.525 | 0.838 | 0.723 |
+| Pixtral-12B (4-bit) | 8,705 | 23.79 | 100% | 0.208 | 0.208 | 0.735 | 0.567 |
+| Llama-3.2-11B (4-bit) | 7,311 | 19.2 | 70% | 0.0 | 0.0 | 0.421 | 0.467 |
 
-**Why Qwen3-VL-2B?** It loads 4x faster than the runner-up, uses half the VRAM (leaving 11 GB headroom for high-resolution documents), and achieves the fastest inference while maintaining 100% structured JSON output. On a free T4 with tight session limits, the low resource footprint is decisive — it allows iterative experimentation without constant OOM crashes.
+> **Florence-2-large** did not complete the benchmark — its task-token architecture (`<OCR>`) is incompatible with free-form extraction prompts.
 
-**Why not the others?** InternVL and Pixtral offer stronger raw OCR scores on academic benchmarks, but their 4-bit quantized inference is 1.7–2.7x slower, and InternVL's 22-minute load time makes interactive/demo use impractical. Florence-2 is architecturally incompatible with our unified prompt strategy (it only accepts predefined task tokens). Llama-3.2-11B requires a gated license and consistently hits CUDA memory limits on T4 when processing full-resolution document images.
+**Important note on test conditions:** Qwen3-VL-2B was benchmarked on **raw CORD images** (including 2304×4096 images at ~9.4M pixels). All other models were tested on **preprocessed images** resized to ≤401K pixels to prevent CUDA crashes. This means Qwen3-VL-2B's scores are measured under harder conditions — in production, where all images pass through `pdf_to_image.py` preprocessing, its accuracy would be equal or higher.
+
+**Why Qwen3-VL-2B?** Despite being tested on raw (unprocessed) images, it achieves the highest weighted score (0.855). It uses the least VRAM (4,058 MB — leaving 11 GB headroom), loads fastest (77s vs 161–917s for others), and maintains 100% JSON reliability. While Qwen2.5-VL-3B has higher raw accuracy (Menu F1 0.859 vs 0.768), it uses 1.8x the VRAM and loads 2x slower. On a free T4 with tight session limits, resource efficiency is decisive.
+
+**Why not the others?** Qwen2.5-VL-3B leads on accuracy but at nearly double the VRAM, leaving little headroom for high-resolution documents. InternVL 3.5-8B and Pixtral-12B are 1.4–1.8x slower at inference, and InternVL's 9-minute load time makes interactive use impractical. Llama-3.2-11B only achieved 70% JSON parse rate and near-zero accuracy on structured extraction — its strength is reasoning, not document parsing. Florence-2 is architecturally incompatible with our unified prompt strategy.
 
 ## 2. Prompting Strategy
 
@@ -49,11 +52,13 @@ We retain individual task-specific prompts as a fallback for benchmarking and ab
 
 **Observed failure modes:**
 
-- **Dense multi-column receipts:** When receipts have >15 line items in small print, the model occasionally merges adjacent items or misaligns prices with item names. The 401K pixel budget forces downscaling of large pages, which blurs fine text.
+- **Multi-column layouts:** The pipeline performs well on simple 2-column documents (label-value pairs, receipts), but struggles with complex multi-column layouts (e.g., financial tables with 4+ columns, side-by-side sections). The model tends to merge columns, misalign values across rows, or skip inner columns entirely. This is a fundamental limitation of treating the entire page as a single image without layout-aware segmentation.
+- **Dense receipts with many line items:** When receipts have >15 items in small print, the model occasionally merges adjacent items or misaligns prices with item names. The 401K pixel budget forces downscaling of large pages, which blurs fine text.
 - **Handwritten text:** The model reliably detects *whether* a signature is present (binary classification) but struggles to transcribe handwritten annotations or cursive text adjacent to signatures.
 - **Rotated sub-regions:** Our deskew pipeline corrects whole-page skew via Hough line detection, but a rotated table embedded in an otherwise straight page is not detected — the VLM must handle it, and it often fails on severely rotated (>15°) sub-regions.
 - **Non-Latin scripts:** While Qwen3-VL supports 30+ languages, our evaluation was limited to English/Indonesian (CORD dataset). Accuracy on Arabic, CJK, or mixed-script documents is untested.
-- **Florence-2 / Llama incompatibility:** Two of seven candidate models couldn't complete benchmarking — Florence-2 due to its task-token architecture (not free-form prompt compatible), and Llama-3.2-11B due to gating + VRAM limits. This reduced our model selection pool.
+- **Florence-2 incompatibility:** Florence-2's task-token architecture is fundamentally incompatible with free-form extraction prompts, preventing it from participating in the benchmark.
+- **Llama-3.2-11B poor structured output:** Despite running successfully, Llama-3.2-11B achieved only 70% JSON parse rate and 0.0 Field EM — it generates conversational answers rather than strict JSON, making it unsuitable for structured extraction despite strong reasoning capabilities.
 - **CUDA context corruption:** A device-side assert in one model permanently corrupts the CUDA context for the entire Colab session, requiring a full runtime restart. We mitigated this by running each model in its own cell and saving results to disk/Drive for cross-session recovery.
 
 ## 4. Production Improvements
@@ -64,11 +69,11 @@ If deploying this pipeline at scale, the key improvements would be:
 
 2. **vLLM / TGI serving:** Use a production inference server (vLLM, HuggingFace TGI) for batched, paged-attention inference. Current sequential processing (~8.4s/page) would drop to ~1-2s/page with proper batching and KV-cache management.
 
-3. **Fine-tuning on domain data:** The current pipeline is fully zero-shot. Fine-tuning Qwen3-VL on 500–1000 labeled examples from the target document domain (invoices, tax forms, medical records) would significantly improve field extraction accuracy, especially for domain-specific schemas.
+3. **LoRA / QLoRA fine-tuning:** The current pipeline is fully zero-shot. Using parameter-efficient fine-tuning (PEFT) methods like **LoRA** (Low-Rank Adaptation) or **QLoRA** (Quantized LoRA) on 500–1000 labeled domain-specific examples would significantly improve extraction accuracy — especially for multi-column tables and domain-specific schemas — without requiring full model retraining. QLoRA is particularly attractive: it fine-tunes a 4-bit quantized model with LoRA adapters, making it feasible even on a single T4 GPU. The resulting adapter weights are only ~50-100 MB, so multiple domain-specific adapters (invoices, medical forms, tax documents) can be hot-swapped at inference time without reloading the base model.
 
 4. **OCR pre-pass + VLM verification:** For documents with very fine print, run a dedicated OCR engine (Tesseract, PaddleOCR) first, then feed the OCR text alongside the image to the VLM. This two-stage approach provides the VLM with text it might miss at lower resolutions.
 
-5. **Region-level skew correction:** Replace the current global deskew with a layout-analysis step (e.g., LayoutLMv3 or DocTR) that detects and individually corrects rotated tables, stamps, or annotations within a page.
+5. **Layout-aware segmentation for multi-column documents:** Replace the current whole-page-to-VLM approach with a layout analysis pre-pass (e.g., LayoutLMv3, DocTR, or YOLO-based table detection) that segments the page into regions — tables, headers, paragraphs, sidebars. Each region can then be cropped and sent to the VLM individually, dramatically improving accuracy on complex multi-column layouts. This also enables region-level skew correction for rotated tables embedded in otherwise straight pages.
 
 6. **Confidence scoring and human-in-the-loop:** Add confidence thresholds to flag low-confidence extractions for human review. The unified prompt already returns a `confidence` field for signatures; extend this pattern to all extraction types.
 

@@ -1,0 +1,8 @@
+{
+  "image_idx": 19,
+  "source": "cord",
+  "model": "qwen3-vl-2b",
+  "gt_signature_present": false,
+  "prediction": null,
+  "json_valid": false
+}

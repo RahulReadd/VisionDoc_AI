@@ -1,0 +1,90 @@
+{
+  "image_idx": 10,
+  "source": "cord",
+  "model": "qwen3-vl-2b",
+  "gt_signature_present": false,
+  "prediction": {
+    "key_value_pairs": {
+      "description": "A receipt from CINEMAS, showing a purchase of two tickets for 60,000, with a total of 60,000. The receipt includes the vendor name, invoice number, and other details.",
+      "example": {
+        "vendor_name": "CINEMAS",
+        "date": null,
+        "invoice_number": "901016",
+        "ticket_cp": "60.000",
+        "total_disc_s": "-60.000",
+        "tax": "5.455",
+        "subtotal": "60.000",
+        "total": "60.000",
+        "edc_cimb_niaga_no": "xx7730",
+        "customer_info": null
+      }
+    },
+    "signature": {
+      "present": false,
+      "confidence": "low",
+      "location": null
+    },
+    "form_fields": [
+      {
+        "field_name": "invoice_number",
+        "status": "filled",
+        "value": "901016"
+      },
+      {
+        "field_name": "ticket_cp",
+        "status": "filled",
+        "value": "60.000"
+      },
+      {
+        "field_name": "total_disc_s",
+        "status": "filled",
+        "value": "-60.000"
+      },
+      {
+        "field_name": "tax",
+        "status": "filled",
+        "value": "5.455"
+      },
+      {
+        "field_name": "subtotal",
+        "status": "filled",
+        "value": "60.000"
+      },
+      {
+        "field_name": "total",
+        "status": "filled",
+        "value": "60.000"
+      },
+      {
+        "field_name": "edc_cimb_niaga_no",
+        "status": "filled",
+        "value": "xx7730"
+      },
+      {
+        "field_name": "customer_info",
+        "status": "empty",
+        "value": null
+      }
+    ],
+    "receipt": {
+      "menu": [
+        {
+          "nm": "TICKET CP",
+          "cnt": "2",
+          "price": "60.000"
+        }
+      ],
+      "sub_total": {
+        "subtotal_price": "60.000",
+        "tax_price": "5.455",
+        "discount_price": "-60.000"
+      },
+      "total": {
+        "total_price": "60.000",
+        "cashprice": "60.000",
+        "changeprice": "0"
+      }
+    }
+  },
+  "json_valid": true
+}

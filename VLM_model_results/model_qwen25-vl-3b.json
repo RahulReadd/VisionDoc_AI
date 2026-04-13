@@ -1,0 +1,13 @@
+{
+  "model_name": "qwen25-vl-3b",
+  "model_id": "Qwen/Qwen2.5-VL-3B-Instruct",
+  "load_time_s": 161.05,
+  "vram_allocated_mb": 7171.3,
+  "vram_reserved_mb": 7246.0,
+  "avg_inference_s": 14.31,
+  "json_success_rate": 1.0,
+  "avg_field_em": 0.658,
+  "avg_field_f1": 0.658,
+  "avg_menu_f1": 0.859,
+  "n_images": 20
+}

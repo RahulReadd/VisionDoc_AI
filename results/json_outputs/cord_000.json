@@ -1,0 +1,93 @@
+{
+  "image_idx": 0,
+  "source": "cord",
+  "model": "qwen3-vl-2b",
+  "prediction": {
+    "key_value_pairs": {
+      "description": "A receipt from CINEMAS, showing a ticket purchase for 2 tickets at 60,000 each, with a total of 60,000. The receipt includes a total discount, tax, and subtotal, and a customer information line.",
+      "example": {
+        "vendor_name": "CINEMAS",
+        "date": null,
+        "invoice_number": "901016"
+      }
+    },
+    "signature": {
+      "present": false,
+      "confidence": "low",
+      "location": null
+    },
+    "form_fields": [
+      {
+        "field_name": "invoice_number",
+        "status": "filled",
+        "value": "901016"
+      },
+      {
+        "field_name": "ticket CP",
+        "status": "filled",
+        "value": "60.000"
+      },
+      {
+        "field_name": "ticket CP",
+        "status": "filled",
+        "value": "60.000"
+      },
+      {
+        "field_name": "TOTAL DISC S",
+        "status": "filled",
+        "value": "-60.000"
+      },
+      {
+        "field_name": "TAX",
+        "status": "filled",
+        "value": "5.455"
+      },
+      {
+        "field_name": "Subtotal",
+        "status": "filled",
+        "value": "60.000"
+      },
+      {
+        "field_name": "TOTAL",
+        "status": "filled",
+        "value": "60.000"
+      },
+      {
+        "field_name": "EDC CIMB NIAGA No:",
+        "status": "filled",
+        "value": "xx7730"
+      },
+      {
+        "field_name": "CASHPRICE",
+        "status": "filled",
+        "value": "60.000"
+      }
+    ],
+    "receipt": {
+      "menu": [
+        {
+          "nm": "TICKET CP",
+          "cnt": "2",
+          "price": "60.000"
+        }
+      ],
+      "sub_total": {
+        "subtotal_price": "60.000",
+        "tax_price": "5.455",
+        "discount_price": "60.000"
+      },
+      "total": {
+        "total_price": "60.000",
+        "cashprice": "60.000",
+        "changeprice": "0"
+      }
+    }
+  },
+  "json_valid": true,
+  "scores": {
+    "json_valid": true,
+    "field_em": 0.6666666666666666,
+    "field_f1": 0.6666666666666666,
+    "menu_f1": 0.0
+  }
+}

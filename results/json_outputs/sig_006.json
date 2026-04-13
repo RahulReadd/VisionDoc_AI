@@ -1,0 +1,50 @@
+{
+  "image_idx": 6,
+  "source": "sigdetect",
+  "model": "qwen3-vl-2b",
+  "gt_signature_present": true,
+  "prediction": {
+    "key_value_pairs": {
+      "description": "A formal letter from Rajiv Gandhi University of Health Sciences, Karnataka, dated 15.12.2017, regarding the issue of No objection certificates for internship transfer of students from one college to another. The letter is addressed to the Principal and all medical colleges affiliated to RGUHS, Bangalore-41, and includes instructions for the principals to follow guidelines for academic year transfer. The letter has a handwritten signature at the end.",
+      "example": {
+        "vendor_name": "Rajiv Gandhi University of Health Sciences, Karnataka",
+        "date": "15.12.2017",
+        "invoice_number": "RGUHS/SWF/CIRCULAR-17A/2017-18"
+      }
+    },
+    "signature": {
+      "present": true,
+      "confidence": "high",
+      "location": "bottom right corner of the document"
+    },
+    "form_fields": [
+      {
+        "field_name": "To",
+        "status": "filled",
+        "value": "The Principal, All Medical colleges affiliated to RGUHS, Bangalore-41"
+      },
+      {
+        "field_name": "Sub:",
+        "status": "filled",
+        "value": "Issue of No objection certificate for internship Transfer of Students from one college to another college."
+      },
+      {
+        "field_name": "Ref:",
+        "status": "filled",
+        "value": "Ref:UA/SYN/MBBS-ITD/21/2002-03 Dated:05.06.2002"
+      },
+      {
+        "field_name": "Date:",
+        "status": "filled",
+        "value": "Date: 15.12.2017"
+      },
+      {
+        "field_name": "Copy to:",
+        "status": "filled",
+        "value": "1. Personal section to Hon,ble Vice Chancellor, RGUHS.\n2. PA to Registrar/Registrar (Eva)/Finance Officer,\n3. System Analyst for web- hosting.\n4. Office Copy"
+      }
+    ],
+    "receipt": null
+  },
+  "json_valid": true
+}

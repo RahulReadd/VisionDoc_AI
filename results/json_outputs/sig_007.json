@@ -1,0 +1,8 @@
+{
+  "image_idx": 7,
+  "source": "sigdetect",
+  "model": "qwen3-vl-2b",
+  "gt_signature_present": true,
+  "prediction": null,
+  "json_valid": false
+}

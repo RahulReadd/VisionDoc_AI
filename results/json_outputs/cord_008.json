@@ -1,0 +1,73 @@
+{
+  "image_idx": 72,
+  "source": "cord",
+  "model": "qwen3-vl-2b",
+  "prediction": {
+    "key_value_pairs": {
+      "description": "A blurry receipt from a store named 'Dopeps Dopeps' with a purchase of 'Choco Devil' for 15,909, total amount of 17,500, and change of 2,500. The receipt has a handwritten signature at the bottom right.",
+      "example": {
+        "vendor_name": "Dopeps Dopeps",
+        "date": null,
+        "invoice_number": null
+      }
+    },
+    "signature": {
+      "present": true,
+      "confidence": "high",
+      "location": "bottom right corner"
+    },
+    "form_fields": [
+      {
+        "field_name": "SubTotal:",
+        "status": "filled",
+        "value": "15,909"
+      },
+      {
+        "field_name": "PBI:",
+        "status": "filled",
+        "value": "1,591"
+      },
+      {
+        "field_name": "Total:",
+        "status": "filled",
+        "value": "17,500"
+      },
+      {
+        "field_name": "cash:",
+        "status": "filled",
+        "value": "20,000"
+      },
+      {
+        "field_name": "Change:",
+        "status": "filled",
+        "value": "2,500"
+      }
+    ],
+    "receipt": {
+      "menu": [
+        {
+          "nm": "Choco Devil",
+          "cnt": "1",
+          "price": "15,909"
+        }
+      ],
+      "sub_total": {
+        "subtotal_price": "15,909",
+        "tax_price": null,
+        "discount_price": null
+      },
+      "total": {
+        "total_price": "17,500",
+        "cashprice": "20,000",
+        "changeprice": "2,500"
+      }
+    }
+  },
+  "json_valid": true,
+  "scores": {
+    "json_valid": true,
+    "field_em": 0.3333333333333333,
+    "field_f1": 0.3333333333333333,
+    "menu_f1": 1.0
+  }
+}

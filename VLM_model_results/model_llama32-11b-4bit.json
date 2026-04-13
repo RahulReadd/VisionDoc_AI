@@ -1,0 +1,13 @@
+{
+  "model_name": "llama32-11b-4bit",
+  "model_id": "meta-llama/Llama-3.2-11B-Vision-Instruct",
+  "load_time_s": 330.61,
+  "vram_allocated_mb": 7311.4,
+  "vram_reserved_mb": 7348.0,
+  "avg_inference_s": 19.2,
+  "json_success_rate": 0.7,
+  "avg_field_em": 0.0,
+  "avg_field_f1": 0.0,
+  "avg_menu_f1": 0.421,
+  "n_images": 20
+}

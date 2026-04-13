@@ -1,0 +1,53 @@
+{
+  "image_idx": 11,
+  "source": "cord",
+  "model": "qwen3-vl-2b",
+  "gt_signature_present": false,
+  "prediction": {
+    "key_value_pairs": {
+      "description": "A receipt for a Banaberry Fresh Cream Cake with a total of 230,000, paid with 230,000 cash, resulting in a change of 0.",
+      "example": {
+        "vendor_name": "BANABERRY FRESH CREAM CAK",
+        "date": null,
+        "invoice_number": null
+      }
+    },
+    "signature": {
+      "present": false,
+      "confidence": "low",
+      "location": null
+    },
+    "form_fields": [
+      {
+        "field_name": "CASH",
+        "status": "filled",
+        "value": "230,000"
+      },
+      {
+        "field_name": "CHANGE",
+        "status": "filled",
+        "value": "0"
+      }
+    ],
+    "receipt": {
+      "menu": [
+        {
+          "nm": "BANABERRY FRESH CREAM CAK",
+          "cnt": "1",
+          "price": "230,000"
+        }
+      ],
+      "sub_total": {
+        "subtotal_price": "230,000",
+        "tax_price": null,
+        "discount_price": null
+      },
+      "total": {
+        "total_price": "230,000",
+        "cashprice": "230,000",
+        "changeprice": "0"
+      }
+    }
+  },
+  "json_valid": true
+}

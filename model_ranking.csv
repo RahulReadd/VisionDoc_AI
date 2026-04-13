@@ -1,0 +1,7 @@
+model_name,accuracy_score,speed_score,vram_score,json_score,weighted_score
+qwen3-vl-2b,0.647,0.987,1,1,0.855
+qwen25-vl-3b,0.758,0.897,0.566,1,0.791
+qwen3-vl-4b,0.704,1,0.479,1,0.778
+internvl35-8b-4bit,0.682,0.686,0.643,1,0.723
+pixtral-12b-4bit,0.472,0.539,0.466,1,0.567
+llama32-11b-4bit,0.21,0.668,0.555,0.7,0.467

@@ -1,0 +1,98 @@
+{
+  "image_idx": 27,
+  "source": "cord",
+  "model": "qwen3-vl-2b",
+  "prediction": {
+    "key_value_pairs": {
+      "description": "A receipt from a food vendor with items and prices listed, including a total amount.",
+      "example": {
+        "vendor_name": "FOODFRUIT",
+        "date": null,
+        "invoice_number": null
+      }
+    },
+    "signature": {
+      "present": false,
+      "confidence": "high",
+      "location": null
+    },
+    "form_fields": [
+      {
+        "field_name": "item name",
+        "status": "filled",
+        "value": "PKT AYAM"
+      },
+      {
+        "field_name": "item name",
+        "status": "filled",
+        "value": "GULAI OTAK"
+      },
+      {
+        "field_name": "quantity",
+        "status": "filled",
+        "value": "2.00"
+      },
+      {
+        "field_name": "unit price",
+        "status": "filled",
+        "value": "33,000"
+      },
+      {
+        "field_name": "unit price",
+        "status": "filled",
+        "value": "23,000"
+      },
+      {
+        "field_name": "subtotal",
+        "status": "filled",
+        "value": "56,000"
+      },
+      {
+        "field_name": "tax",
+        "status": "filled",
+        "value": "5,600"
+      },
+      {
+        "field_name": "total",
+        "status": "filled",
+        "value": "61,600"
+      },
+      {
+        "field_name": "charges",
+        "status": "filled",
+        "value": "61,600"
+      }
+    ],
+    "receipt": {
+      "menu": [
+        {
+          "nm": "PKT AYAM",
+          "cnt": "1",
+          "price": "33,000"
+        },
+        {
+          "nm": "GULAI OTAK",
+          "cnt": "1",
+          "price": "23,000"
+        }
+      ],
+      "sub_total": {
+        "subtotal_price": "56,000",
+        "tax_price": "5,600",
+        "discount_price": "0"
+      },
+      "total": {
+        "total_price": "61,600",
+        "cashprice": "61,600",
+        "changeprice": "0"
+      }
+    }
+  },
+  "json_valid": true,
+  "scores": {
+    "json_valid": true,
+    "field_em": 0.3333333333333333,
+    "field_f1": 0.3333333333333333,
+    "menu_f1": 1.0
+  }
+}

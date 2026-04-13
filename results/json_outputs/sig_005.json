@@ -1,0 +1,35 @@
+{
+  "image_idx": 5,
+  "source": "sigdetect",
+  "model": "qwen3-vl-2b",
+  "gt_signature_present": true,
+  "prediction": {
+    "key_value_pairs": {
+      "description": "CERTIFICATE OF RESOURCE MEMBERSHIP",
+      "example": {
+        "vendor_name": "Nepal Mountaineering Association",
+        "date": "2020/8/9",
+        "invoice_number": "AM# 1033"
+      }
+    },
+    "signature": {
+      "present": true,
+      "confidence": "high",
+      "location": "bottom right"
+    },
+    "form_fields": [
+      {
+        "field_name": "Membership No.",
+        "status": "filled",
+        "value": "AM# 1033"
+      },
+      {
+        "field_name": "Issued No.",
+        "status": "filled",
+        "value": "2020/8/9"
+      }
+    ],
+    "receipt": null
+  },
+  "json_valid": true
+}

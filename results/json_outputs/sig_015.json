@@ -1,0 +1,58 @@
+{
+  "image_idx": 15,
+  "source": "cord",
+  "model": "qwen3-vl-2b",
+  "gt_signature_present": false,
+  "prediction": {
+    "key_value_pairs": {
+      "description": "A receipt with two items: Apple Cinnamon Pastry and Royal Cheese Tart, with a total of 54,000.",
+      "example": {
+        "vendor_name": "Unknown",
+        "date": "Unknown",
+        "invoice_number": "Unknown"
+      }
+    },
+    "signature": {
+      "present": false,
+      "confidence": "low",
+      "location": null
+    },
+    "form_fields": [
+      {
+        "field_name": "CARD",
+        "status": "filled",
+        "value": "54,000"
+      },
+      {
+        "field_name": "TOTAL",
+        "status": "filled",
+        "value": "54,000"
+      }
+    ],
+    "receipt": {
+      "menu": [
+        {
+          "nm": "APPLE CINNAMON PAstry",
+          "cnt": "1",
+          "price": "22,000"
+        },
+        {
+          "nm": "ROYAL CHEESE TART",
+          "cnt": "2",
+          "price": "32,000"
+        }
+      ],
+      "sub_total": {
+        "subtotal_price": "54,000",
+        "tax_price": "0",
+        "discount_price": "0"
+      },
+      "total": {
+        "total_price": "54,000",
+        "cashprice": "54,000",
+        "changeprice": "0"
+      }
+    }
+  },
+  "json_valid": true
+}

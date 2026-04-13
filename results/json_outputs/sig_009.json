@@ -1,0 +1,45 @@
+{
+  "image_idx": 9,
+  "source": "sigdetect",
+  "model": "qwen3-vl-2b",
+  "gt_signature_present": true,
+  "prediction": {
+    "key_value_pairs": {
+      "description": "Whittier College Doctor of Human Letters degree certificate",
+      "example": {
+        "vendor_name": "Whittier College",
+        "date": "the twentieth day of December, two thousand eight",
+        "invoice_number": null
+      }
+    },
+    "signature": {
+      "present": true,
+      "confidence": "high",
+      "location": "bottom left corner"
+    },
+    "form_fields": [
+      {
+        "field_name": "Name",
+        "status": "filled",
+        "value": "Generable Master Aung Yun"
+      },
+      {
+        "field_name": "Degree",
+        "status": "filled",
+        "value": "Doctor of Human Letters"
+      },
+      {
+        "field_name": "Location",
+        "status": "filled",
+        "value": "Whittier, California"
+      },
+      {
+        "field_name": "Date",
+        "status": "filled",
+        "value": "this twentieth day of December, two thousand eight"
+      }
+    ],
+    "receipt": null
+  },
+  "json_valid": true
+}

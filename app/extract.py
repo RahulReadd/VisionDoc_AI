@@ -30,97 +30,53 @@ from src.models import get_model
 
 # ── Unified extraction prompt ────────────────────────────────────────────
 
-EXTRACTION_PROMPT = """Analyze this document image thoroughly and extract ALL of the following into a single JSON object.
+EXTRACTION_PROMPT = """You are a document extraction system. Analyze this document image and return a JSON object with exactly these 4 keys:
 
-{
-  "key_value_pairs": {
-    "description": "Every key-value pair visible in the document",
-    "example": {"vendor_name": "...", "date": "...", "invoice_number": "..."}
-  },
-  "signature": {
-    "present": true or false,
-    "confidence": "high" or "medium" or "low",
-    "location": "description of where on the page, or null"
-  },
-  "form_fields": [
-    {"field_name": "...", "status": "filled" or "empty", "value": "content or null"}
-  ],
-  "receipt": {
-    "menu": [
-      {"nm": "item name", "cnt": "quantity", "price": "unit price"}
-    ],
-    "sub_total": {
-      "subtotal_price": "...",
-      "tax_price": "...",
-      "discount_price": "..."
-    },
-    "total": {
-      "total_price": "...",
-      "cashprice": "...",
-      "changeprice": "..."
-    }
-  }
-}
+1. "key_value_pairs": A flat dictionary of every labeled piece of information. Map each label to its value. For example, if the document says "Date: April 12", output "Date": "April 12". Include names, dates, numbers, addresses, totals, IDs — every piece of data that has a label.
 
-Rules:
-- Return ONLY valid JSON. No extra text, explanation, or markdown.
-- Use null for any field you cannot find in the image.
-- For key_value_pairs: include EVERY piece of text information visible as key-value.
-- For signature: always report whether a handwritten signature is present or not.
-- For form_fields: list ALL visible form fields with their filled/empty status.
-- For receipt: include ALL line items. If the document is not a receipt, set receipt to null.
+2. "signature": Detect whether a handwritten signature (not printed text, not a logo) is physically present.
+   Return: {"present": true/false, "confidence": "high"/"medium"/"low", "location": "bottom right"} or {"present": false, "confidence": "high", "location": null}
+
+3. "form_fields": List input fields that a human is expected to fill in (text boxes, checkboxes, blanks, lines to write on). Table cells and printed data are NOT form fields.
+   Return: [{"field_name": "Name", "status": "filled", "value": "John"}] or [] if there are no form fields.
+
+4. "receipt": If this is a receipt or invoice with line items, extract them. If NOT a receipt/invoice, set this to null.
+   Return: {"menu": [{"nm": "Coffee", "cnt": "2", "price": "8.00"}], "sub_total": {"subtotal_price": "8.00", "tax_price": "0.40", "discount_price": null}, "total": {"total_price": "8.40", "cashprice": null, "changeprice": null}}
+
+STRICT RULES:
+- Return ONLY the JSON object. No text before or after. No markdown fences.
+- Use null for missing values. Do NOT copy these instructions into the output.
+- key_value_pairs must be a flat dict like {"Date": "April 12", "Total": "$100"}, NOT nested.
+- form_fields must be [] (empty list) if there are no fillable form fields.
+- receipt must be null if the document is not a receipt or invoice.
 """
 
 # Keep individual prompts available for backward compatibility and benchmarking
 PROMPTS = {
-    "receipt": """Analyze this receipt image. Extract all information and return a JSON object with these fields:
+    "receipt": """Extract all information from this receipt/invoice image as JSON.
 
-{
-  "menu": [
-    {"nm": "item name", "cnt": "quantity", "price": "unit price"}
-  ],
-  "sub_total": {
-    "subtotal_price": "...",
-    "tax_price": "...",
-    "discount_price": "..."
-  },
-  "total": {
-    "total_price": "...",
-    "cashprice": "...",
-    "changeprice": "..."
-  }
-}
+Return exactly this structure (use null for missing fields):
+{"menu": [{"nm": "item name", "cnt": "quantity", "price": "unit price"}], "sub_total": {"subtotal_price": "...", "tax_price": "...", "discount_price": null}, "total": {"total_price": "...", "cashprice": null, "changeprice": null}}
 
-Rules:
-- Return ONLY valid JSON, no extra text or explanation.
-- Use null for any field you cannot find in the image.
-- Include ALL menu items visible on the receipt.
-""",
+Include every line item. Return ONLY the JSON, no other text.""",
 
-    "signature": """Is there a handwritten signature present on this document? Answer with a JSON object:
-{"signature_present": true/false, "confidence": "high/medium/low", "location": "description or null"}
+    "signature": """Look at this document image carefully. Is there a handwritten signature physically present? A signature is a handwritten cursive/scribble mark, NOT printed text or a typed name.
 
-Return ONLY the JSON object.""",
+Return ONLY this JSON:
+{"signature_present": true or false, "confidence": "high" or "medium" or "low", "location": "where on the page, or null if not present"}""",
 
-    "form_fields": """Analyze this document image. List ALL form fields visible and indicate whether each is filled or empty.
+    "form_fields": """Identify all fillable form fields in this document. A form field is an input area meant for a human to write or type into (text boxes, checkboxes, blank lines, dropdown areas). Printed labels and table data are NOT form fields.
 
-Return a JSON object:
-{
-  "fields": [
-    {"field_name": "...", "status": "filled" or "empty", "value": "content or null"}
-  ]
-}
+Return ONLY this JSON:
+{"fields": [{"field_name": "Name", "status": "filled", "value": "John Doe"}]}
 
-Return ONLY the JSON object, no extra text.""",
+If there are no fillable form fields, return: {"fields": []}""",
 
-    "key_value": """Extract ALL key-value pairs from this document as a JSON object.
+    "key_value": """Extract every labeled piece of information from this document as a flat JSON dictionary. Map each label/heading to its value.
 
-Format: {"key1": "value1", "key2": "value2", ...}
+Example: if the document says "Date: April 12" and "Total: $100", return {"Date": "April 12", "Total": "$100"}.
 
-Rules:
-- Include every piece of text information visible.
-- Use descriptive key names.
-- Return ONLY the JSON object.""",
+Include all names, dates, IDs, amounts, addresses, and any other labeled data. Return ONLY the JSON object.""",
 }
 
 

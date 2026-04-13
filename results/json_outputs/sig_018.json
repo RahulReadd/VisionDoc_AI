@@ -1,0 +1,73 @@
+{
+  "image_idx": 18,
+  "source": "cord",
+  "model": "qwen3-vl-2b",
+  "gt_signature_present": false,
+  "prediction": {
+    "key_value_pairs": {
+      "description": "A receipt from Auntie Anne's with items: Stix Eclairs and Almond Cream Cheese, with a sub-total of 47,000 and a grand total of 47,000. The payment method is Visa ending in 8945, with no change due.",
+      "example": {
+        "vendor_name": "Auntie Anne's",
+        "date": null,
+        "invoice_number": null
+      }
+    },
+    "signature": {
+      "present": false,
+      "confidence": "low",
+      "location": null
+    },
+    "form_fields": [
+      {
+        "field_name": "vendor_name",
+        "status": "filled",
+        "value": "Auntie Anne's"
+      },
+      {
+        "field_name": "date",
+        "status": "empty",
+        "value": null
+      },
+      {
+        "field_name": "invoice_number",
+        "status": "empty",
+        "value": null
+      },
+      {
+        "field_name": "payment_method",
+        "status": "filled",
+        "value": "VISA 8945"
+      },
+      {
+        "field_name": "change_due",
+        "status": "filled",
+        "value": "0"
+      }
+    ],
+    "receipt": {
+      "menu": [
+        {
+          "nm": "STIX ECLAIRS",
+          "cnt": "1",
+          "price": "19,000"
+        },
+        {
+          "nm": "ALMOND CREAM CHEESE",
+          "cnt": "1",
+          "price": "28,000"
+        }
+      ],
+      "sub_total": {
+        "subtotal_price": "47,000",
+        "tax_price": null,
+        "discount_price": null
+      },
+      "total": {
+        "total_price": "47,000",
+        "cashprice": "47,000",
+        "changeprice": "0"
+      }
+    }
+  },
+  "json_valid": true
+}

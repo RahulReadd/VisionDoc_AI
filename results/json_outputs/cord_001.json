@@ -1,0 +1,68 @@
+{
+  "image_idx": 9,
+  "source": "cord",
+  "model": "qwen3-vl-2b",
+  "prediction": {
+    "key_value_pairs": {
+      "description": "A receipt with itemized charges for Bumbu Kaldu Ayam, a discount of 0%, and a cash payment of 50000, resulting in a change of 14000.",
+      "example": {
+        "vendor_name": "Bumbu Kaldu Ayam",
+        "date": "not visible",
+        "invoice_number": "not visible"
+      }
+    },
+    "signature": {
+      "present": false,
+      "confidence": "high",
+      "location": "not applicable"
+    },
+    "form_fields": [
+      {
+        "field_name": "Sub Total",
+        "status": "filled",
+        "value": "36000"
+      },
+      {
+        "field_name": "Discount (0 %)",
+        "status": "filled",
+        "value": "0"
+      },
+      {
+        "field_name": "Tunai",
+        "status": "filled",
+        "value": "50000"
+      },
+      {
+        "field_name": "Kembalian",
+        "status": "filled",
+        "value": "14000"
+      }
+    ],
+    "receipt": {
+      "menu": [
+        {
+          "nm": "Bumbu Kaldu Ayam",
+          "cnt": "1",
+          "price": "36000"
+        }
+      ],
+      "sub_total": {
+        "subtotal_price": "36000",
+        "tax_price": "0",
+        "discount_price": "0"
+      },
+      "total": {
+        "total_price": "50000",
+        "cashprice": "50000",
+        "changeprice": "14000"
+      }
+    }
+  },
+  "json_valid": true,
+  "scores": {
+    "json_valid": true,
+    "field_em": 0.0,
+    "field_f1": 0.0,
+    "menu_f1": 0.0
+  }
+}

@@ -1,0 +1,73 @@
+{
+  "image_idx": 36,
+  "source": "cord",
+  "model": "qwen3-vl-2b",
+  "prediction": {
+    "key_value_pairs": {
+      "description": "A receipt with a single item: 1 XXL Crispy Chicken for 40,000, and a total of 40,000. The payment was made with 100,000 cash, resulting in a change of 60,000.",
+      "example": {
+        "vendor_name": "...",
+        "date": "...",
+        "invoice_number": "..."
+      }
+    },
+    "signature": {
+      "present": false,
+      "confidence": "low",
+      "location": "not visible"
+    },
+    "form_fields": [
+      {
+        "field_name": "ITEMS",
+        "status": "filled",
+        "value": "1"
+      },
+      {
+        "field_name": "Total",
+        "status": "filled",
+        "value": "40,000"
+      },
+      {
+        "field_name": "Pay Cash",
+        "status": "filled",
+        "value": "100,000"
+      },
+      {
+        "field_name": "Change",
+        "status": "filled",
+        "value": "60,000"
+      }
+    ],
+    "receipt": {
+      "menu": [
+        {
+          "nm": "XXL Crispy Chicken",
+          "cnt": "1",
+          "price": "40,000"
+        },
+        {
+          "nm": "- Sedang",
+          "cnt": "1",
+          "price": "0"
+        }
+      ],
+      "sub_total": {
+        "subtotal_price": "40,000",
+        "tax_price": "0",
+        "discount_price": "0"
+      },
+      "total": {
+        "total_price": "40,000",
+        "cashprice": "100,000",
+        "changeprice": "60,000"
+      }
+    }
+  },
+  "json_valid": true,
+  "scores": {
+    "json_valid": true,
+    "field_em": 1.0,
+    "field_f1": 1.0,
+    "menu_f1": 1.0
+  }
+}

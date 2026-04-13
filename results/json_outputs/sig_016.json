@@ -1,0 +1,98 @@
+{
+  "image_idx": 16,
+  "source": "cord",
+  "model": "qwen3-vl-2b",
+  "gt_signature_present": false,
+  "prediction": {
+    "key_value_pairs": {
+      "description": "A receipt for an item named 'PILLOW DURIA' with a price of 36,364, a subtotal of 36,364, a 10% tax of 3,636, and a total amount of 40,000. The payment was made with 50,000 in cash, resulting in a change of 10,000.",
+      "example": {
+        "vendor_name": "BAYU",
+        "date": "2023-04-05",
+        "invoice_number": "1000000001"
+      }
+    },
+    "signature": {
+      "present": false,
+      "confidence": "low",
+      "location": "bottom right corner"
+    },
+    "form_fields": [
+      {
+        "field_name": "item name",
+        "status": "filled",
+        "value": "PILLOW DURIA"
+      },
+      {
+        "field_name": "quantity",
+        "status": "filled",
+        "value": "25"
+      },
+      {
+        "field_name": "unit price",
+        "status": "filled",
+        "value": "36,364"
+      },
+      {
+        "field_name": "subtotal",
+        "status": "filled",
+        "value": "36,364"
+      },
+      {
+        "field_name": "tax rate",
+        "status": "filled",
+        "value": "10%"
+      },
+      {
+        "field_name": "tax amount",
+        "status": "filled",
+        "value": "3,636"
+      },
+      {
+        "field_name": "amount",
+        "status": "filled",
+        "value": "3,636"
+      },
+      {
+        "field_name": "total",
+        "status": "filled",
+        "value": "40,000"
+      },
+      {
+        "field_name": "cash",
+        "status": "filled",
+        "value": "50,000"
+      },
+      {
+        "field_name": "change",
+        "status": "filled",
+        "value": "10,000"
+      }
+    ],
+    "receipt": {
+      "menu": [
+        {
+          "nm": "PILLOW DURIA",
+          "cnt": "25",
+          "price": "36,364"
+        },
+        {
+          "nm": "PLASTIK",
+          "cnt": "25",
+          "price": "36,364"
+        }
+      ],
+      "sub_total": {
+        "subtotal_price": "36,364",
+        "tax_price": "3,636",
+        "discount_price": "0"
+      },
+      "total": {
+        "total_price": "40,000",
+        "cashprice": "50,000",
+        "changeprice": "10,000"
+      }
+    }
+  },
+  "json_valid": true
+}

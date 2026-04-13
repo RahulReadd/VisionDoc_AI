@@ -1,0 +1,45 @@
+{
+  "image_idx": 2,
+  "source": "sigdetect",
+  "model": "qwen3-vl-2b",
+  "gt_signature_present": true,
+  "prediction": {
+    "key_value_pairs": {
+      "description": "A Delaware state certificate of incorporation, signed by the Secretary of State, with a seal and date.",
+      "example": {
+        "vendor_name": "Jeffrey W. Bullock",
+        "date": "09-20-11",
+        "invoice_number": null
+      }
+    },
+    "signature": {
+      "present": true,
+      "confidence": "high",
+      "location": "lower right"
+    },
+    "form_fields": [
+      {
+        "field_name": "I. Jeffrey W. Bullock",
+        "status": "filled",
+        "value": "SECRETARY OF STATE OF THE STATE OF DELAWARE"
+      },
+      {
+        "field_name": "DO HERBERT",
+        "status": "filled",
+        "value": "CERTIFY THE ATTACHED IS A TRUE AND CORRECT COPY OF THE CERTIFICATE OF INCORPORATION OF"
+      },
+      {
+        "field_name": "FILED IN THIS OFFICE ON THE TENTH DAY OF JANUARY, A.D. 2007",
+        "status": "filled",
+        "value": "AT 1:44 O'CLOCK P.M."
+      },
+      {
+        "field_name": "DATE",
+        "status": "filled",
+        "value": "09-20-11"
+      }
+    ],
+    "receipt": null
+  },
+  "json_valid": true
+}

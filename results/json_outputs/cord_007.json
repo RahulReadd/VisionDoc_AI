@@ -1,0 +1,63 @@
+{
+  "image_idx": 63,
+  "source": "cord",
+  "model": "qwen3-vl-2b",
+  "prediction": {
+    "key_value_pairs": {
+      "description": "A receipt for two cups of Kopi Susu Kampung with ice, where the first cup has ice and the second does not, with a total of 57.000, paid in cash of 60.000 and change of 3.000.",
+      "example": {
+        "vendor_name": "Kopi Susu Kampung",
+        "date": "April 21",
+        "invoice_number": "2123456789"
+      }
+    },
+    "signature": {
+      "present": false,
+      "confidence": "low",
+      "location": "top right corner"
+    },
+    "form_fields": [
+      {
+        "field_name": "Cash",
+        "status": "filled",
+        "value": "60.000"
+      },
+      {
+        "field_name": "Change",
+        "status": "filled",
+        "value": "3.000"
+      }
+    ],
+    "receipt": {
+      "menu": [
+        {
+          "nm": "Kopi Susu Kampung.",
+          "cnt": "x1",
+          "price": "19.000"
+        },
+        {
+          "nm": "Kopi Susu Kampung.",
+          "cnt": "x2",
+          "price": "38.000"
+        }
+      ],
+      "sub_total": {
+        "subtotal_price": "57.000",
+        "tax_price": "0",
+        "discount_price": "0"
+      },
+      "total": {
+        "total_price": "57.000",
+        "cashprice": "60.000",
+        "changeprice": "3.000"
+      }
+    }
+  },
+  "json_valid": true,
+  "scores": {
+    "json_valid": true,
+    "field_em": 1.0,
+    "field_f1": 1.0,
+    "menu_f1": 0.5
+  }
+}

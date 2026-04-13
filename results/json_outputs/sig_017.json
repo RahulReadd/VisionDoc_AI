@@ -1,0 +1,68 @@
+{
+  "image_idx": 17,
+  "source": "cord",
+  "model": "qwen3-vl-2b",
+  "gt_signature_present": false,
+  "prediction": {
+    "key_value_pairs": {
+      "description": "A receipt with the following details: 'TRIPLE CHEESE' for 17,000 IDR, 'SUB TOTAL' of 17,000 IDR, 'GRAND TOTAL' of 17,000 IDR, and 'CASH IDR' of 22,000 IDR, with 'CHANGE DUE' of 5,000 IDR.",
+      "example": {
+        "vendor_name": "TRIPLE CHEESE",
+        "date": null,
+        "invoice_number": null
+      }
+    },
+    "signature": {
+      "present": false,
+      "confidence": "low",
+      "location": null
+    },
+    "form_fields": [
+      {
+        "field_name": "vendor_name",
+        "status": "filled",
+        "value": "TRIPLE CHEESE"
+      },
+      {
+        "field_name": "date",
+        "status": "empty",
+        "value": null
+      },
+      {
+        "field_name": "invoice_number",
+        "status": "empty",
+        "value": null
+      },
+      {
+        "field_name": "payment_method",
+        "status": "filled",
+        "value": "CASH IDR"
+      },
+      {
+        "field_name": "change_due",
+        "status": "filled",
+        "value": "5,000"
+      }
+    ],
+    "receipt": {
+      "menu": [
+        {
+          "nm": "TRIPLE CHEESE",
+          "cnt": "1",
+          "price": "17,000"
+        }
+      ],
+      "sub_total": {
+        "subtotal_price": "17,000",
+        "tax_price": null,
+        "discount_price": null
+      },
+      "total": {
+        "total_price": "17,000",
+        "cashprice": "22,000",
+        "changeprice": "5,000"
+      }
+    }
+  },
+  "json_valid": true
+}

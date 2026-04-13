@@ -1,0 +1,55 @@
+{
+  "image_idx": 8,
+  "source": "sigdetect",
+  "model": "qwen3-vl-2b",
+  "gt_signature_present": true,
+  "prediction": {
+    "key_value_pairs": {
+      "description": "A formal letter from ACOEM AB to ALPS Maintenening Services, Inc. certifying that ACOEM AB is the appointed exclusive distributor in the Philippines for Fixturlaser products. The letter includes contact details, a date, and a signature from the Managing Director.",
+      "example": {
+        "vendor_name": "ALPS Maintenening Services, Inc.",
+        "date": "Möndal 13 March 2017",
+        "invoice_number": null
+      }
+    },
+    "signature": {
+      "present": true,
+      "confidence": "high",
+      "location": "bottom left of the page"
+    },
+    "form_fields": [
+      {
+        "field_name": "Attn:",
+        "status": "filled",
+        "value": "Mr. Marlon Dayon"
+      },
+      {
+        "field_name": "To Whom It May Concern",
+        "status": "filled",
+        "value": "Dear Sirs,"
+      },
+      {
+        "field_name": "Vendor Name",
+        "status": "filled",
+        "value": "ALPS Maintenening Services, Inc."
+      },
+      {
+        "field_name": "Address",
+        "status": "filled",
+        "value": "Unit 506 Richville Corporate Center\n1314 Commerce Ave., Madrigal Business Park\nAyala Alabang, Muntinlupa City\nPhilippines"
+      },
+      {
+        "field_name": "Contact Information",
+        "status": "filled",
+        "value": "Phone: +46 31 706 28 00 - Fax: +46 31 706 28 50\nE-mail: info@futurlasel.se - www.futurlasel.se"
+      },
+      {
+        "field_name": "Signature",
+        "status": "filled",
+        "value": "Yours sincerely,\nManaging Director"
+      }
+    ],
+    "receipt": null
+  },
+  "json_valid": true
+}

@@ -1,0 +1,173 @@
+{
+  "image_idx": 99,
+  "source": "cord",
+  "model": "qwen3-vl-2b",
+  "prediction": {
+    "key_value_pairs": {
+      "description": "A receipt from a restaurant or cafe with items ordered and the total amount.",
+      "example": {
+        "vendor_name": "null",
+        "date": "null",
+        "invoice_number": "null"
+      }
+    },
+    "signature": {
+      "present": false,
+      "confidence": "low",
+      "location": "null"
+    },
+    "form_fields": [
+      {
+        "field_name": "item name",
+        "status": "filled",
+        "value": "FL-Xmas 30 Off"
+      },
+      {
+        "field_name": "item name",
+        "status": "filled",
+        "value": "PAKET SLICES"
+      },
+      {
+        "field_name": "item name",
+        "status": "filled",
+        "value": "Vanilla SLC"
+      },
+      {
+        "field_name": "item name",
+        "status": "filled",
+        "value": "PAKET SLICES"
+      },
+      {
+        "field_name": "item name",
+        "status": "filled",
+        "value": "Tea SLC"
+      },
+      {
+        "field_name": "item name",
+        "status": "filled",
+        "value": "PAKET SLICES"
+      },
+      {
+        "field_name": "item name",
+        "status": "filled",
+        "value": "FL Cake - Belgium"
+      },
+      {
+        "field_name": "item name",
+        "status": "filled",
+        "value": "Choco SLC"
+      },
+      {
+        "field_name": "item name",
+        "status": "filled",
+        "value": "BIAYA TAMBAHAN"
+      },
+      {
+        "field_name": "item name",
+        "status": "filled",
+        "value": "PAJAK PPN 10 %"
+      },
+      {
+        "field_name": "item name",
+        "status": "filled",
+        "value": "PAJAK 0 %"
+      },
+      {
+        "field_name": "item name",
+        "status": "filled",
+        "value": "BIAYA CC"
+      },
+      {
+        "field_name": "item name",
+        "status": "filled",
+        "value": "PEMBULATAN"
+      },
+      {
+        "field_name": "item name",
+        "status": "filled",
+        "value": "TUNAI"
+      },
+      {
+        "field_name": "item name",
+        "status": "filled",
+        "value": "NON TUNAI"
+      },
+      {
+        "field_name": "item name",
+        "status": "filled",
+        "value": "KEMBALI"
+      }
+    ],
+    "receipt": {
+      "menu": [
+        {
+          "nm": "FL-Xmas 30 Off",
+          "cnt": 1,
+          "price": 68180
+        },
+        {
+          "nm": "PAKET SLICES",
+          "cnt": 1,
+          "price": 0
+        },
+        {
+          "nm": "FL Cake - French",
+          "cnt": 1,
+          "price": 0
+        },
+        {
+          "nm": "Vanilla SLC",
+          "cnt": 1,
+          "price": 0
+        },
+        {
+          "nm": "PAKET SLICES",
+          "cnt": 1,
+          "price": 0
+        },
+        {
+          "nm": "FL Cake - Green",
+          "cnt": 1,
+          "price": 0
+        },
+        {
+          "nm": "Tea SLC",
+          "cnt": 1,
+          "price": 0
+        },
+        {
+          "nm": "PAKET SLICES",
+          "cnt": 1,
+          "price": 0
+        },
+        {
+          "nm": "FL Cake - Belgium",
+          "cnt": 1,
+          "price": 0
+        },
+        {
+          "nm": "Choco SLC",
+          "cnt": 1,
+          "price": 0
+        }
+      ],
+      "sub_total": {
+        "subtotal_price": "68180",
+        "tax_price": "6818",
+        "discount_price": "0"
+      },
+      "total": {
+        "total_price": "75000",
+        "cashprice": "75000",
+        "changeprice": "0"
+      }
+    }
+  },
+  "json_valid": true,
+  "scores": {
+    "json_valid": true,
+    "field_em": 0.0,
+    "field_f1": 0.0,
+    "menu_f1": 0.3076923076923077
+  }
+}

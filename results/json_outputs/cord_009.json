@@ -1,0 +1,68 @@
+{
+  "image_idx": 81,
+  "source": "cord",
+  "model": "qwen3-vl-2b",
+  "prediction": {
+    "key_value_pairs": {
+      "description": "A receipt with items including 3002-Kyoto Choco Mochi, 1001-Choco Bun, and 6001-Plastic Bag Small, with a total of 50,000.",
+      "example": {
+        "vendor_name": "Kyoto Choco Mochi",
+        "date": "not visible",
+        "invoice_number": "3002"
+      }
+    },
+    "signature": {
+      "present": false,
+      "confidence": "low",
+      "location": "not visible"
+    },
+    "form_fields": [
+      {
+        "field_name": "Total Item:",
+        "status": "filled",
+        "value": "4"
+      },
+      {
+        "field_name": "Total.",
+        "status": "filled",
+        "value": "50.000"
+      }
+    ],
+    "receipt": {
+      "menu": [
+        {
+          "nm": "3002-Kyoto Choco Mochi",
+          "cnt": "2",
+          "price": "14.000"
+        },
+        {
+          "nm": "1001-Choco Bun",
+          "cnt": "1",
+          "price": "22.000"
+        },
+        {
+          "nm": "6001-Plastic Bag Small",
+          "cnt": "1",
+          "price": "0"
+        }
+      ],
+      "sub_total": {
+        "subtotal_price": "28.000",
+        "tax_price": "0",
+        "discount_price": "0"
+      },
+      "total": {
+        "total_price": "50.000",
+        "cashprice": "50.000",
+        "changeprice": "0"
+      }
+    }
+  },
+  "json_valid": true,
+  "scores": {
+    "json_valid": true,
+    "field_em": 1.0,
+    "field_f1": 1.0,
+    "menu_f1": 1.0
+  }
+}

@@ -1,0 +1,56 @@
+{
+  "image_idx": 12,
+  "source": "cord",
+  "model": "qwen3-vl-2b",
+  "gt_signature_present": false,
+  "prediction": {
+    "key_value_pairs": {
+      "description": "A receipt with two items: 2 soft steamed cheese and 2 soft steamed choco, each priced at 20,000, for a total of 40,000. The payment was made with 100,000 in cash, resulting in a change of 60,000.",
+      "example": {
+        "vendor_name": "..."
+      }
+    },
+    "signature": {
+      "present": false,
+      "confidence": "low",
+      "location": "not visible"
+    },
+    "form_fields": [
+      {
+        "field_name": "CASH",
+        "status": "filled",
+        "value": "100,000"
+      },
+      {
+        "field_name": "CHANGE",
+        "status": "filled",
+        "value": "60,000"
+      }
+    ],
+    "receipt": {
+      "menu": [
+        {
+          "nm": "SOFT STEAMED CHEESE",
+          "cnt": "2",
+          "price": "20,000"
+        },
+        {
+          "nm": "SOFT STEAMED CHOCO",
+          "cnt": "2",
+          "price": "20,000"
+        }
+      ],
+      "sub_total": {
+        "subtotal_price": "40,000",
+        "tax_price": "0",
+        "discount_price": "0"
+      },
+      "total": {
+        "total_price": "40,000",
+        "cashprice": "100,000",
+        "changeprice": "60,000"
+      }
+    }
+  },
+  "json_valid": true
+}

@@ -1,0 +1,13 @@
+{
+  "model_name": "internvl35-8b-4bit",
+  "model_id": "OpenGVLab/InternVL3_5-8B-HF",
+  "load_time_s": 558.56,
+  "vram_allocated_mb": 6312.3,
+  "vram_reserved_mb": 7322.0,
+  "avg_inference_s": 18.69,
+  "json_success_rate": 1.0,
+  "avg_field_em": 0.492,
+  "avg_field_f1": 0.525,
+  "avg_menu_f1": 0.838,
+  "n_images": 20
+}

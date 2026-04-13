@@ -43,39 +43,43 @@ PDF file
 
 ## Model Selection
 
-We benchmarked 5 open-source VLM families on the **CORD v2** receipt dataset using a Google Colab T4 GPU (15 GB VRAM). All models achieved **100% JSON parse success rate**.
+We benchmarked 6 open-source VLMs on **20 CORD v2** receipt images using a Google Colab T4 GPU (15 GB VRAM), evaluating both operational and accuracy metrics. A weighted scoring system (Accuracy 40%, Speed 25%, VRAM 20%, JSON reliability 15%) produced the final ranking.
 
 ### Benchmark Results
 
-| Model | Model ID | Load (s) | VRAM Alloc (MB) | VRAM Reserve (MB) | Avg Inference (s) | JSON % |
-|-------|----------|----------|-----------------|--------------------|--------------------|--------|
-| **Qwen3-VL-2B** | Qwen/Qwen3-VL-2B-Instruct | 122.51 | 4,058 | 4,078 | **8.41** | 100% |
-| Qwen3-VL-4B | Qwen/Qwen3-VL-4B-Instruct | 528.24 | 8,465 | 8,466 | 10.43 | 100% |
-| Qwen2.5-VL-3B | Qwen/Qwen2.5-VL-3B-Instruct | 541.91 | 7,171 | 7,246 | 8.98 | 100% |
-| InternVL 3.5-8B (4-bit) | OpenGVLab/InternVL3_5-8B-HF | 1,327.14 | 6,307 | 6,916 | 14.62 | 100% |
-| Pixtral-12B (4-bit) | mistral-community/pixtral-12b | 2,846.68 | 8,693 | 8,704 | 22.82 | 100% |
+| Model | Load (s) | VRAM (MB) | Avg Inf (s) | JSON % | Field EM | Field F1 | Menu F1 | Weighted Score |
+|-------|----------|-----------|-------------|--------|----------|----------|---------|----------------|
+| **Qwen3-VL-2B** ★ | 77.2 | 4,058 | 13.0 | 100% | 0.492 | 0.525 | 0.768 | **0.855** |
+| Qwen2.5-VL-3B | 161.1 | 7,171 | 14.31 | 100% | 0.658 | 0.658 | 0.859 | 0.790 |
+| Qwen3-VL-4B | 194.4 | 8,480 | 12.83 | 100% | 0.542 | 0.575 | 0.834 | 0.778 |
+| InternVL 3.5-8B (4-bit) | 558.6 | 6,312 | 18.69 | 100% | 0.492 | 0.525 | 0.838 | 0.723 |
+| Pixtral-12B (4-bit) | 916.3 | 8,705 | 23.79 | 100% | 0.208 | 0.208 | 0.735 | 0.567 |
+| Llama-3.2-11B (4-bit) | 330.6 | 7,311 | 19.2 | 70% | 0.0 | 0.0 | 0.421 | 0.467 |
 
-> **Florence-2-large** and **Llama-3.2-11B-Vision** did not complete the benchmark due to compatibility issues on Colab T4
+> **Florence-2-large** did not complete the benchmark — its task-token architecture is incompatible with free-form extraction prompts.
+
+> **Note:** Qwen3-VL-2B was tested on raw CORD images (up to 2304×4096). All other models used preprocessed images (≤401K pixels) to prevent CUDA crashes. Qwen3-VL-2B's scores are therefore measured under harder conditions.
 
 ### Why Qwen3-VL-2B?
 
 | Criteria | Qwen3-VL-2B | Runner-up (Qwen2.5-VL-3B) |
 |----------|-------------|---------------------------|
-| **Load time** | 122s (fastest) | 542s |
+| **Weighted Score** | **0.855** (1st) | 0.790 (2nd) |
+| **Load time** | 77s (fastest) | 161s |
 | **VRAM** | 4,058 MB (lowest — leaves 11 GB headroom) | 7,171 MB |
-| **Inference speed** | 8.41s/image | 8.98s/image |
 | **JSON success** | 100% | 100% |
+| **Menu F1** | 0.768 | 0.859 (highest) |
 
-**Qwen3-VL-2B** is the clear winner: it loads **4x faster**, uses **half the VRAM**, and matches or beats all other models on inference speed — all while maintaining 100% structured output reliability. The low VRAM footprint is critical because it leaves ample headroom for high-resolution document images on the T4's 15 GB budget.
+**Qwen3-VL-2B** wins overall: it loads **2x faster**, uses **half the VRAM**, and maintains 100% JSON reliability. While Qwen2.5-VL-3B has higher raw accuracy (Menu F1 0.859), the VRAM and speed advantages of the 2B model are decisive on a T4's 15 GB budget — especially since it achieved these scores on unprocessed images, meaning production accuracy (with preprocessing) would be higher.
 
-### Models That Did Not Run
+### Models That Did Not Complete / Underperformed
 
-- **Florence-2-large**: Uses a different architecture (`AutoModelForCausalLM` with task-specific tokens like `<OCR_WITH_REGION>`) that expects Florence-specific prompt formats rather than free-form text prompts. Requires adapter-level prompt remapping to work with our generic benchmark harness.
-- **Llama-3.2-11B-Vision**: Requires accepting Meta's community license on HuggingFace and `huggingface-cli login`. Additionally, at 11B parameters even with 4-bit quantization (~8 GB), it can hit CUDA memory limits when combined with large image tensors on T4.
+- **Florence-2-large**: Task-token architecture (`<OCR>`, `<OCR_WITH_REGION>`) is incompatible with free-form text prompts. Requires adapter-level prompt remapping.
+- **Llama-3.2-11B-Vision (4-bit)**: Ran but achieved only 70% JSON parse rate and near-zero accuracy (Field EM = 0.0). Its strength is reasoning, not structured document extraction.
 
-The Adapter + Registry pattern makes swapping to any model a one-line change if these issues are resolved later.
+The Adapter + Registry pattern makes swapping to any model a one-line change.
 
-Full benchmarking analysis is in `notebooks/01_model_selection.ipynb`.
+Full benchmarking analysis is in `app/model_selection.ipynb`.
 
 ---
 
@@ -183,9 +187,7 @@ VLM_PDF_Extractor/
 │   ├── json_outputs/             # Extracted JSON (10+ documents)
 │   ├── qualitative/              # Side-by-side examples
 │   └── eval_summary.csv          # Metrics summary
-│
-│
-└── Planning/                     # Research & planning documents
+
 ```
 
 ---

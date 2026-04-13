@@ -1,0 +1,40 @@
+{
+  "image_idx": 1,
+  "source": "sigdetect",
+  "model": "qwen3-vl-2b",
+  "gt_signature_present": true,
+  "prediction": {
+    "key_value_pairs": {
+      "description": "A formal letter of appointment from the Hainan Association of Plant Engineering to Mr. Guido Walt, inviting him to be the honorary president.",
+      "example": {
+        "vendor_name": "Hainan Association of Plant Engineering",
+        "date": "Nov.27,2008",
+        "invoice_number": null
+      }
+    },
+    "signature": {
+      "present": true,
+      "confidence": "high",
+      "location": "lower right corner of the document"
+    },
+    "form_fields": [
+      {
+        "field_name": "Dear Mr. Guido Walt",
+        "status": "filled",
+        "value": "Dear Mr. Guido Walt,"
+      },
+      {
+        "field_name": "We Sincerely invite you to be the honorary president of Hainan Association of Plant Engineering.",
+        "status": "filled",
+        "value": "We Sincerely invite you to be the honorary president of Hainan Association of Plant Engineering."
+      },
+      {
+        "field_name": "Invite Is Hereby",
+        "status": "filled",
+        "value": "Invite Is Hereby"
+      }
+    ],
+    "receipt": null
+  },
+  "json_valid": true
+}

@@ -1,0 +1,13 @@
+{
+  "model_name": "pixtral-12b-4bit",
+  "model_id": "mistral-community/pixtral-12b",
+  "load_time_s": 916.34,
+  "vram_allocated_mb": 8705.4,
+  "vram_reserved_mb": 8726.0,
+  "avg_inference_s": 23.79,
+  "json_success_rate": 1.0,
+  "avg_field_em": 0.208,
+  "avg_field_f1": 0.208,
+  "avg_menu_f1": 0.735,
+  "n_images": 20
+}

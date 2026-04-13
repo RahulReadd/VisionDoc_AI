@@ -1,0 +1,68 @@
+{
+  "image_idx": 18,
+  "source": "cord",
+  "model": "qwen3-vl-2b",
+  "prediction": {
+    "key_value_pairs": {
+      "description": "A receipt with the following visible information: 'Propolis Cair 1' priced at 156000, 'Sub Total' of 156000, 'Tunai' of 156000, and 'Kembalian' of Rp. 0.",
+      "example": {
+        "vendor_name": "null",
+        "date": "null",
+        "invoice_number": "null"
+      }
+    },
+    "signature": {
+      "present": false,
+      "confidence": "low",
+      "location": "null"
+    },
+    "form_fields": [
+      {
+        "field_name": "Tunai",
+        "status": "filled",
+        "value": "156000"
+      },
+      {
+        "field_name": "Kembalian",
+        "status": "filled",
+        "value": "Rp. 0"
+      },
+      {
+        "field_name": "Sub Total",
+        "status": "filled",
+        "value": "156000"
+      },
+      {
+        "field_name": "Propolis Cair 1",
+        "status": "filled",
+        "value": "156000"
+      }
+    ],
+    "receipt": {
+      "menu": [
+        {
+          "nm": "Propolis Cair 1",
+          "cnt": "1",
+          "price": "156000"
+        }
+      ],
+      "sub_total": {
+        "subtotal_price": "156000",
+        "tax_price": "null",
+        "discount_price": "null"
+      },
+      "total": {
+        "total_price": "156000",
+        "cashprice": "156000",
+        "changeprice": "0"
+      }
+    }
+  },
+  "json_valid": true,
+  "scores": {
+    "json_valid": true,
+    "field_em": 1.0,
+    "field_f1": 1.0,
+    "menu_f1": 0.0
+  }
+}
