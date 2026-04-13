@@ -31,7 +31,7 @@ def _patch_florence2_config(model):
 class Florence2Adapter(VLMAdapter):
 
     def load(self) -> None:
-        from transformers import AutoModelForCausalLM, AutoProcessor
+        from transformers import AutoModelForCausalLM, AutoProcessor  # type: ignore[import-unresolved]
 
         load_kwargs: dict = dict(
             torch_dtype=self.config.dtype,
