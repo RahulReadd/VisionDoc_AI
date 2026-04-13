@@ -12,6 +12,7 @@ import torch
 
 from .base import ModelConfig, VLMAdapter
 from .qwen3_vl import Qwen3VLAdapter
+from .qwen25_vl import Qwen25VLAdapter
 from .internvl import InternVLAdapter
 from .florence2 import Florence2Adapter
 from .pixtral import PixtralAdapter
@@ -52,6 +53,19 @@ PRESETS: dict[str, tuple[type[VLMAdapter], ModelConfig]] = {
             family="qwen3-vl",
             dtype=torch.float16,
             quantization="4bit",
+            min_pixels=256 * 28 * 28,
+            max_pixels=512 * 28 * 28,
+        ),
+    ),
+
+    # ── Qwen2.5-VL family (Alibaba, 2024) ────────────────────────────
+    #    Predecessor to Qwen3; strong baseline for document extraction.
+    "qwen25-vl-3b": (
+        Qwen25VLAdapter,
+        ModelConfig(
+            model_id="Qwen/Qwen2.5-VL-3B-Instruct",
+            family="qwen25-vl",
+            dtype=torch.float16,
             min_pixels=256 * 28 * 28,
             max_pixels=512 * 28 * 28,
         ),

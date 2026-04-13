@@ -1,7 +1,8 @@
 """Module 3: Evaluation & Scoring.
 
-Compares VLM extraction outputs against CORD ground truth.
-Computes Exact Match, Token F1, and Menu Item F1.
+Evaluates VLM extraction outputs against ground truth:
+  - Receipt fields: Exact Match, Token F1, Menu Item F1 (CORD dataset)
+  - Signature detection: Accuracy, Precision, Recall, F1 (binary classification)
 
 Usage:
     python -m app.evaluate --predictions results/outputs/preds.json
@@ -153,6 +154,107 @@ def evaluate_batch(predictions: list[dict | None], ground_truths: list) -> dict:
         "avg_field_em": sum(s["field_em"] for s in all_scores) / n,
         "avg_field_f1": sum(s["field_f1"] for s in all_scores) / n,
         "avg_menu_f1": sum(s["menu_f1"] for s in all_scores) / n,
+        "per_sample": all_scores,
+    }
+
+
+# ── Signature Detection Evaluation ───────────────────────────────────────
+
+def parse_signature_prediction(pred_json: dict | None) -> bool | None:
+    """Extract the predicted signature presence from VLM output.
+
+    Handles both unified prompt format (nested under 'signature') and
+    single-task format (top-level 'signature_present').
+
+    Returns True/False, or None if prediction couldn't be parsed.
+    """
+    if pred_json is None:
+        return None
+
+    # Unified prompt: {"signature": {"present": true/false, ...}}
+    sig = pred_json.get("signature")
+    if isinstance(sig, dict):
+        val = sig.get("present", sig.get("signature_present"))
+        if isinstance(val, bool):
+            return val
+        if isinstance(val, str):
+            return val.lower() in ("true", "yes", "1")
+
+    # Single-task prompt: {"signature_present": true/false}
+    val = pred_json.get("signature_present")
+    if isinstance(val, bool):
+        return val
+    if isinstance(val, str):
+        return val.lower() in ("true", "yes", "1")
+
+    return None
+
+
+def evaluate_signature_single(pred_json: dict | None, gt_present: bool) -> dict:
+    """Evaluate a single signature detection prediction.
+
+    Args:
+        pred_json: Parsed JSON from VLM output.
+        gt_present: Ground truth — True if signature is present.
+
+    Returns:
+        Dict with 'pred', 'gold', 'correct', 'tp', 'fp', 'fn', 'tn'.
+    """
+    pred = parse_signature_prediction(pred_json)
+
+    if pred is None:
+        pred = False  # conservative: treat unparseable as "no signature"
+
+    return {
+        "pred": pred,
+        "gold": gt_present,
+        "correct": pred == gt_present,
+        "tp": int(pred and gt_present),
+        "fp": int(pred and not gt_present),
+        "fn": int(not pred and gt_present),
+        "tn": int(not pred and not gt_present),
+    }
+
+
+def evaluate_signature_batch(predictions: list[dict | None], ground_truths: list[bool]) -> dict:
+    """Evaluate a batch of signature detection predictions.
+
+    Args:
+        predictions: List of parsed JSON outputs from VLM.
+        ground_truths: List of booleans — True if signature is present.
+
+    Returns:
+        Dict with accuracy, precision, recall, f1, and per-sample results.
+    """
+    all_scores = []
+    for pred, gt in zip(predictions, ground_truths):
+        scores = evaluate_signature_single(pred, gt)
+        all_scores.append(scores)
+
+    n = len(all_scores)
+    if n == 0:
+        return {"n": 0}
+
+    tp = sum(s["tp"] for s in all_scores)
+    fp = sum(s["fp"] for s in all_scores)
+    fn = sum(s["fn"] for s in all_scores)
+    tn = sum(s["tn"] for s in all_scores)
+
+    accuracy = (tp + tn) / n if n else 0.0
+    precision = tp / (tp + fp) if (tp + fp) > 0 else 0.0
+    recall = tp / (tp + fn) if (tp + fn) > 0 else 0.0
+    f1 = 2 * precision * recall / (precision + recall) if (precision + recall) > 0 else 0.0
+
+    return {
+        "n": n,
+        "accuracy": round(accuracy, 3),
+        "precision": round(precision, 3),
+        "recall": round(recall, 3),
+        "f1": round(f1, 3),
+        "tp": tp,
+        "fp": fp,
+        "fn": fn,
+        "tn": tn,
         "per_sample": all_scores,
     }
 
