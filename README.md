@@ -1,4 +1,4 @@
-# VLM PDF Extractor
+# VisionDoc AI
 
 End-to-end pipeline that converts PDF documents into structured JSON using open-source Vision-Language Models (VLMs), running entirely on a free Google Colab T4 GPU (15 GB VRAM).
 
